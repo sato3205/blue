@@ -75,12 +75,15 @@ section > h2{
 
 /* ---------- H3: 左帯付き小見出し ---------- */
 section > h3{
-  margin:.6em 0 .4em;
-  padding-left:.6em;
-  border-left:12px solid var(--primary);
-  color:var(--primary);
-  font-size:1.05em;
+  margin: 0.9em 0 0.5em;
+  padding-bottom: 0.25em;
+  border-bottom: 2px solid var(--primary);
+  color: var(--primary-dark);
+  font-weight: 700;
+  font-size: 1.05em;
+  letter-spacing: 0.015em;
 }
+
 
 /* ---------- H5: 黒の太字（帯なし・黒） ---------- */
 section > h5{
@@ -165,5 +168,6 @@ section:first-of-type::after {
 body {
   font-size: 90%;   /* ← 同じく全体を10%縮小 */
 }
+
 
 
