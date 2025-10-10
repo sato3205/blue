@@ -73,16 +73,20 @@ section > h2{
   z-index:2;
 }
 
-/* ---------- H3: 左帯付き小見出し ---------- */
-section > h3{
-  margin: 0.9em 0 0.5em;
-  padding-bottom: 0.25em;
-  border-bottom: 2px solid var(--primary);
-  color: var(--primary-dark);
+/* ---------- H3: 囲み型（角丸＋四辺線＋背景あり） ---------- */
+section > h3 {
+  margin: 1em 0 0.6em;
+  padding: 0.6em 0.8em;
+  border: 2px solid var(--primary);         /* 四辺線を追加 */
+  border-radius: 10px;                      /* 角を丸くする */
+  background-color: var(--primary-light);   /* 淡い背景で可読性UP */
+  color: var(--primary-dark);               /* 文字は濃い青で強調 */
   font-weight: 700;
   font-size: 1.05em;
-  letter-spacing: 0.015em;
+  letter-spacing: 0.02em;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* ほんの少し影で浮かせる */
 }
+
 
 
 /* ---------- H5: 黒の太字（帯なし・黒） ---------- */
@@ -168,6 +172,7 @@ section:first-of-type::after {
 body {
   font-size: 90%;   /* ← 同じく全体を10%縮小 */
 }
+
 
 
 
