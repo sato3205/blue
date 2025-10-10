@@ -24,7 +24,7 @@
   --font-code:'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace;
 
   --pad-x:40px;
-  --bar-height:56px;
+  --bar-height:60px;
   --content-bottom:40px;
 }
 
@@ -73,18 +73,14 @@ section > h2{
   z-index:2;
 }
 
-/* ---------- H3: 枠だけ（角丸・中央寄せせず・背景なし） ---------- */
-section > h3 {
-  display: inline-block;               /* 横幅を文字列に合わせる */
-  margin: 1em 0 0.6em;
-  padding: 0.4em 0.8em;
-  border: 2px solid var(--primary);    /* 枠線だけ（背景なし） */
-  border-radius: 10px;                 /* 角丸 */
-  background: none;                    /* 背景削除 */
-  color: var(--primary-dark);          /* 文字を濃い青で */
+section > h3{
+  margin: 0.9em 0 0.5em;
+  padding-bottom: 0.25em;
+  border-bottom: 2px solid var(--primary);
+  color: var(--primary-dark);
   font-weight: 700;
   font-size: 1.05em;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.015em;
 }
 
 
@@ -174,6 +170,7 @@ section:first-of-type::after {
 body {
   font-size: 90%;   /* ← 同じく全体を10%縮小 */
 }
+
 
 
 
