@@ -73,19 +73,21 @@ section > h2{
   z-index:2;
 }
 
-/* ---------- H3: 囲み型（角丸＋四辺線＋背景あり） ---------- */
+/* ---------- H3: 枠だけ（角丸・中央寄せせず・背景なし） ---------- */
 section > h3 {
+  display: inline-block;               /* 横幅を文字列に合わせる */
   margin: 1em 0 0.6em;
-  padding: 0.6em 0.8em;
-  border: 2px solid var(--primary);         /* 四辺線を追加 */
-  border-radius: 10px;                      /* 角を丸くする */
-  background-color: var(--primary-light);   /* 淡い背景で可読性UP */
-  color: var(--primary-dark);               /* 文字は濃い青で強調 */
+  padding: 0.4em 0.8em;
+  border: 2px solid var(--primary);    /* 枠線だけ（背景なし） */
+  border-radius: 10px;                 /* 角丸 */
+  background: none;                    /* 背景削除 */
+  color: var(--primary-dark);          /* 文字を濃い青で */
   font-weight: 700;
   font-size: 1.05em;
   letter-spacing: 0.02em;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* ほんの少し影で浮かせる */
 }
+
+
 
 
 
@@ -172,6 +174,7 @@ section:first-of-type::after {
 body {
   font-size: 90%;   /* ← 同じく全体を10%縮小 */
 }
+
 
 
 
