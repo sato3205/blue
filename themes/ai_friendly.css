@@ -24,7 +24,7 @@
   --font-code:'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace;
 
   --pad-x:40px;
-  --bar-height:65px;
+  --bar-height:70px;
   --content-bottom:40px;
 }
 
@@ -170,6 +170,7 @@ section:first-of-type::after {
 body {
   font-size: 90%;   /* ← 同じく全体を10%縮小 */
 }
+
 
 
 
