@@ -1,274 +1,144 @@
 /* @theme ai_friendly */
 
-/* PowerPoint と同じ 16:9 を明示（Marp は元々 16:9 ですが強制しておく） */
-@size 16:9;
-
+/* ---- base ---- */
 @import 'gaia';
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
 
-/* =======================================================================
-   Base Theme Settings
-   ======================================================================= */
-:root {
-  /* 濃い青（学会向け） */
-  --primary: #2563eb;                 /* Blue-600 */
-  --primary-light:  rgba(37, 99, 235, .08);
-  --primary-medium: rgba(37, 99, 235, .15);
-  --primary-dark:   #1d4ed8;           /* Blue-700 */
-
+/* -------- variables -------- */
+:root{
+  /* 色：学会向けの濃い青 */
+  --primary: #2f54eb;               /* 濃い青 */
+  --primary-dark: #1d39c4;
+  --primary-light: rgba(47,84,235,.10);
   --accent: #dc2626;
-  --accent-light: rgba(220, 38, 38, .08);
-  --accent-medium: rgba(220, 38, 38, .15);
 
-  --success: #059669;
-  --success-light: rgba(5, 150, 105, .08);
+  --success:#059669; --success-light:rgba(5,150,105,.08);
+  --warning:#d97706; --warning-light:rgba(217,119,6,.08);
 
-  --warning: #d97706;
-  --warning-light: rgba(217, 119, 6, .08);
+  --background:#ffffff;
+  --surface:#f8fafc; --surface-elevated:#f1f5f9;
 
-  --background: #ffffff;
-  --surface: #f8fafc;
-  --surface-elevated: #f1f5f9;
+  --text-primary:#0f172a; --text-secondary:#475569; --text-inverse:#ffffff;
+  --border-light:#e2e8f0; --border-medium:#cbd5e1;
 
-  --text-primary: #0f172a;
-  --text-secondary: #475569;
-  --text-muted: #64748b;
-  --text-inverse: #ffffff;
+  --font-base:'Noto Sans JP', system-ui, -apple-system, sans-serif;
+  --font-code:'Source Code Pro', ui-monospace, SFMono-Regular, monospace;
 
-  --border-light: #e2e8f0;
-  --border-medium: #cbd5e1;
-  --border-dark: #94a3b8;
+  --radius-sm:.375rem; --radius-md:.5rem;
 
-  --font-base: 'Noto Sans JP', sans-serif;
-  --font-code: 'Source Code Pro', monospace;
-
-  --radius-sm: .375rem;
-  --radius-md: .5rem;
-  --radius-lg: .75rem;
-  --radius-xl: 1rem;
-
-  --shadow-sm: 0 1px 2px 0 rgba(0,0,0,.05);
-  --shadow-md: 0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -1px rgba(0,0,0,.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,.1), 0 4px 6px -2px rgba(0,0,0,.05);
-
-  --transition-fast: 150ms ease-out;
-  --transition-normal: 250ms ease-out;
-  --transition-slow: 350ms ease-out;
-
-  --space-xs: .5rem;
-  --space-sm: .8rem;
-  --space-md: 1rem;
-  --space-lg: 1.5rem;
-  --space-xl: 2rem;
-
-  /* 見出しバーの高さ */
-  --header-height: 56px;
+  /* スライド余白・見出しバー関連 */
+  --pad-x: 40px;           /* 左右パディング */
+  --pad-top: 68px;         /* 本文開始位置（見出しバーの高さぶん確保） */
+  --h2-height: 56px;       /* 見出しバーの高さ */
 }
 
-/* =======================================================================
-   Base Layout
-   ======================================================================= */
-section {
+/* -------- slide base -------- */
+section{
   font-family: var(--font-base);
-  background-image: none;
-  /* 上の白帯を消す：上パディングを0に */
-  padding: 0 40px 40px;
-  background-color: var(--background);
   color: var(--text-primary);
-  position: relative; /* 絶対配置の基準 */
-}
-
-/* h2 以外の最初の要素を見出しバーの下へ押し下げる */
-section > *:not(h2):first-child {
-  margin-top: calc(var(--header-height) + 12px);
+  background: var(--background);
+  background-image: none;
+  /* ここがポイント：本文は下げるが、見出しは上に被せる */
+  padding: var(--pad-top) var(--pad-x) 40px;
+  position: relative;
 }
 
 /* ページ番号 */
-section::after {
-  font-weight: 700;
-  color: var(--text-secondary);
-  content: attr(data-marpit-pagination) '/' attr(data-marpit-pagination-total);
+section::after{
+  font-weight:700;
+  color:var(--text-secondary);
+  content: attr(data-marpit-pagination) "/" attr(data-marpit-pagination-total);
 }
 
-/* =======================================================================
-   Typography
-   ======================================================================= */
-h1 {
-  color: var(--primary);
-  text-align: center;
-  position: absolute;
-  top: 45%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+/* -------- typography -------- */
+h1{
+  color:var(--primary);
+  text-align:center;
+  position:absolute; top:45%; left:50%; transform:translate(-50%,-50%);
 }
 
-h2 {
-  background-color: var(--primary);
-  color: var(--background);
-  font-size: 1em;
-  font-weight: 700;
-  padding: 10px 20px;
-  position: absolute;  /* スライド最上部に固定 */
-  top: 0; left: 0; right: 0;
+h2{
+  /* バーを最上端にぴったり貼り付ける */
+  position:absolute;
+  top: calc(-1 * var(--pad-top));   /* ← これで白帯を消す（上パディング分だけ上へ） */
+  left: 0; right: 0;
+  height: var(--h2-height);
+  line-height: var(--h2-height);
+  padding: 0 calc(var(--pad-x) - 4px);   /* 文字左右余白（お好みで） */
+  background: var(--primary);
+  color: var(--text-inverse);
+  font-size: 1.05em; font-weight: 700;
   z-index: 2;
 }
-h2 strong { color: var(--background); }
 
-h3 {
-  border-left: 15px solid var(--primary);
+h2 strong{ color:var(--text-inverse); }
+
+h3{
+  border-left: 12px solid var(--primary);
   color: var(--primary);
   font-size: 1.0em;
   margin: .5em 0;
-  padding-left: var(--space-xs);
+  padding-left: .5rem;
 }
-h3 strong { color: var(--primary); }
 
-/* =======================================================================
-   Quotes / Code
-   ======================================================================= */
-blockquote {
+/* -------- blocks -------- */
+blockquote{
   border-left: 4px solid var(--primary);
-  background-color: var(--primary-light);
-  margin: var(--space-md) 0;
-  padding: var(--space-xs) var(--space-md);
-}
-blockquote::before, blockquote::after { content: none; }
-blockquote strong { color: var(--primary); }
-
-code {
-  font-family: var(--font-code);
-  background-color: var(--surface-elevated);
-  color: var(--primary-dark);
-  padding: .1em .3em;
-  border-radius: 3px;
-}
-
-pre {
-  background: #1e293b;
-  color: #e2e8f0;
-  padding: .5rem 1rem .8rem 1rem;
-  border-radius: var(--radius-sm);
-  overflow-x: auto;
-  font-family: var(--font-code);
+  background: var(--primary-light);
   margin: 1rem 0;
-  box-shadow: var(--shadow-lg);
-  border: 1px solid var(--border-medium);
+  padding: .6rem 1rem;
 }
-pre code { background-color: transparent; color: inherit; padding: 0; border-radius: 0; }
+blockquote::before, blockquote::after{ content:none; }
 
-/* =======================================================================
-   Lists / Tables
-   ======================================================================= */
-section ul, section ol { margin-top: .3rem; margin-bottom: .3rem; }
-section ul { margin-left: 0; padding-left: .9rem; }
-section ul li::marker,
-section ol li::marker { color: var(--primary); font-weight: 600; }
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: var(--space-md) 0;
-  font-size: .9em;
-  border-radius: var(--radius-sm);
-  overflow: hidden;
+code{
+  font-family: var(--font-code);
+  background: var(--surface-elevated);
+  color: var(--primary-dark);
+  padding: .12em .35em; border-radius: 4px;
 }
-table th {
+pre{
+  background:#1e293b; color:#e2e8f0;
+  padding:.6rem 1rem .9rem 1rem; border-radius: var(--radius-sm);
+  border:1px solid var(--border-medium); overflow-x:auto;
+  font-family: var(--font-code);
+}
+
+/* -------- lists -------- */
+section ul, section ol{ margin:.3rem 0; }
+section ul{ padding-left: .9rem; }
+section ul li::marker, section ol li::marker{ color:var(--primary); font-weight:600; }
+
+/* -------- tables -------- */
+table{
+  width:100%; border-collapse:collapse; margin:1rem 0; font-size:.95em;
+  border-radius: var(--radius-sm); overflow:hidden;
+}
+table th{
   background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%) !important;
-  color: var(--text-inverse) !important;
-  font-weight: 600;
-  padding: var(--space-xs) var(--space-sm);
-  text-align: left;
-  border: none;
-  letter-spacing: .025em;
+  color: var(--text-inverse) !important; font-weight:600; padding:.45rem .6rem; text-align:left;
 }
-table td {
-  padding: var(--space-xs) var(--space-sm);
-  border: none;
-  background-color: var(--background);
-  transition: background-color var(--transition-fast);
-}
-table tbody tr:nth-child(even) td { background-color: var(--surface); }
-table tbody tr:not(:last-child) td { border-bottom: 1px solid var(--border-light); }
-table tr:hover td { background-color: var(--primary-light); }
+table td{ padding:.45rem .6rem; border:none; }
+table tbody tr:nth-child(even) td{ background: var(--surface); }
+table tbody tr:nth-child(odd)  td{ background: var(--background); }
+table tbody tr:not(:last-child) td{ border-bottom:1px solid var(--border-light); }
+table tr:hover td{ background: var(--primary-light); }
 
-/* =======================================================================
-   Utilities / Figures / Footnote / Boxes
-   ======================================================================= */
-.r { color: var(--accent); font-weight: bold; }
-.b { color: var(--primary); font-weight: bold; }
-.success { color: var(--success); }
-.warning { color: var(--warning); }
+/* -------- images / figures -------- */
+.figure-wrapper{ display:flex; flex-direction:column; align-items:center; justify-content:center; width:100%; height:100%; margin:0; }
+.figure-wrapper img{ max-width:100%; max-height:65vh; object-fit:contain; }
+.figure-wrapper p{ font-size:.5em; color:var(--text-secondary); margin:0; text-align:left; }
 
-.author {
-  color: var(--text-secondary);
-  text-align: center;
-  position: absolute;
-  top: 65%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+/* -------- footnote -------- */
+.footnote{
+  font-size:.5em; color:var(--text-secondary);
+  position:absolute; bottom:20px; left:40px; right:40px; padding-top:10px;
 }
 
-.figure-wrapper {
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  margin: 0; width: 100%; height: 100%;
-}
-.figure-wrapper.right { float: right; margin-left: var(--space-md); margin-bottom: var(--space-md); max-width: 45%; align-items: flex-start; justify-content: flex-start; height: auto; }
-.figure-wrapper img { max-width: 100%; max-height: 65vh; width: auto; height: auto; margin: 0; }
-.figure-wrapper p { font-size: .5em; color: var(--text-secondary); margin: 0; text-align: left; max-width: 100%; }
-
-.figure-wrapper.withtext { padding-top: 0; padding-bottom: 0; margin-top: .05em; margin-bottom: .05em; height: auto; }
-.figure-wrapper.withtext img { margin: 0; max-height: 300px; }
-.figure-wrapper.withtext p { margin-top: .05em; }
-
-img[alt~="center"] { display: block; max-width: 100%; max-height: 65vh; width: auto; height: auto; object-fit: contain; }
-img[alt~="right"]  { max-width: 100%; max-height: 65vh; width: auto; height: auto; object-fit: contain; }
-.clear { clear: both; }
-
-.footnote {
-  font-size: .5em; color: var(--text-muted);
-  position: absolute; bottom: 20px; left: 40px; right: 40px; padding-top: 10px;
+/* -------- 16:9 (PowerPointと同じ比率) -------- */
+@page{
+  size: 1280px 720px;   /* 16:9 */
+  margin: 0;           /* スライド外余白なし */
 }
 
-.important {
-  border: 2px solid; border-radius: 8px; padding: 0; margin: var(--space-xs) 0;
-  border-color: var(--primary); background-color: var(--primary-light);
-  display: flex; flex-direction: column; overflow: hidden; color: var(--primary);
-}
-.important > * { margin: 0; padding: var(--space-xs); }
-.important.center { text-align: center; }
-.important.red { border-color: var(--accent); background-color: var(--accent-light); color: var(--accent); }
-.important.success { border-color: var(--success); background-color: var(--success-light); color: var(--success); }
-.important.warning { border-color: var(--warning); background-color: var(--warning-light); color: var(--warning); }
-
-/* =======================================================================
-   Enhanced Syntax Highlighting (Refined Monokai)
-   ======================================================================= */
-.highlight .hll { background-color: #3b4252 }
-.highlight .c  { color: #6b7280; font-style: italic } /* Comment */
-.highlight .err{ color: #ef4444; background-color: rgba(239,68,68,.1) } /* Error */
-.highlight .k  { color: #8b5cf6; font-weight: 500 } /* Keyword */
-.highlight .l  { color: #f59e0b } /* Literal */
-.highlight .n  { color: #e2e8f0 } /* Name */
-.highlight .o  { color: #ec4899 } /* Operator */
-.highlight .p  { color: #e2e8f0 } /* Punctuation */
-.highlight .cm, .highlight .cp, .highlight .c1, .highlight .cs { color: #6b7280; font-style: italic }
-.highlight .ge { font-style: italic } .highlight .gs { font-weight: 600 }
-.highlight .kc,.highlight .kd,.highlight .kp,.highlight .kr,.highlight .kt { color: #8b5cf6 }
-.highlight .ld { color: #10b981 } .highlight .m, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .mo, .highlight .il { color: #f59e0b }
-.highlight .s, .highlight .sb, .highlight .sc, .highlight .sd, .highlight .s1, .highlight .s2, .highlight .se, .highlight .sh, .highlight .si, .highlight .sx, .highlight .sr, .highlight .ss { color: #10b981 }
-.highlight .na,.highlight .nc,.highlight .nd,.highlight .ne,.highlight .nf,.highlight .nx { color: #06b6d4 }
-.highlight .nb,.highlight .ni,.highlight .nn,.highlight .nl,.highlight .nv,.highlight .vc,.highlight .vg,.highlight .vi,.highlight .w,.highlight .bp { color: #e2e8f0 }
-
-/* Prism fallback */
-.language-python .token.keyword{ color:#66d9ef } .language-python .token.string{ color:#e6db74 }
-.language-python .token.function{ color:#a6e22e } .language-python .token.comment{ color:#75715e }
-.language-python .token.number{ color:#ae81ff } .language-python .token.operator{ color:#f92672 }
-.language-javascript .token.keyword{ color:#66d9ef } .language-javascript .token.string{ color:#e6db74 }
-.language-javascript .token.function{ color:#a6e22e } .language-javascript .token.comment{ color:#75715e }
-.language-javascript .token.number{ color:#ae81ff } .language-javascript .token.operator{ color:#f92672 }
-.language-css .token.property{ color:#66d9ef } .language-css .token.string{ color:#e6db74 }
-.language-css .token.selector{ color:#a6e22e } .language-css .token.comment{ color:#75715e }
-.language-css .token.number{ color:#ae81ff }
-.language-html .token.tag{ color:#f92672 } .language-html .token.attr-name{ color:#a6e22e }
-.language-html .token.attr-value{ color:#e6db74 } .language-html .token.comment{ color:#75715e }
+/* （必要なら）コードハイライト細部は省略可 */
