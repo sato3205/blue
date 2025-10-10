@@ -12,7 +12,7 @@
   --primary-dark:#1d39c4;
   --primary-light:rgba(47,84,235,.10);
 
-  --accent:#dc2626;           /* 赤（太字用） */
+  --accent:#dc2626;           /* 強調（赤太字） */
 
   --background:#fff;
   --text-primary:#0f172a;
@@ -36,7 +36,7 @@ section{
   background:var(--background);
   background-image:none;
 
-  /* 上の見出しバーと干渉しないように上部余白を確保 */
+  /* 上の見出しバー用に上部余白を確保 */
   padding: calc(var(--bar-height) + 12px) var(--pad-x) var(--content-bottom);
 }
 
@@ -44,6 +44,16 @@ section::after{
   content: attr(data-marpit-pagination) "/" attr(data-marpit-pagination-total);
   color:var(--text-secondary);
   font-weight:700;
+}
+
+/* ---------- H1（タイトル） を中央揃え ---------- */
+section > h1{
+  text-align:center;
+  margin:.15em 0 .6em;
+  font-size:2.4em;
+  line-height:1.15;
+  letter-spacing:.02em;
+  color:var(--text-primary);
 }
 
 /* ---------- H2: 上端バー ---------- */
@@ -72,6 +82,16 @@ section > h3{
   font-size:1.0em;
 }
 
+/* ---------- H5: 黒の太字（帯なし・黒） ---------- */
+section > h5{
+  margin:.5em 0 .2em;
+  color:var(--text-primary) !important;
+  font-weight:800 !important;
+  font-size:1.0em;
+  border:none !important;
+  padding:0 !important;
+}
+
 /* ---------- フォールバック：h2が無いスライドで最初のh3を上バー化 ---------- */
 section:not(:has(> h2)) { padding-top: calc(var(--bar-height) + 12px); }
 section:not(:has(> h2)) > h3:first-of-type{
@@ -90,8 +110,7 @@ section:not(:has(> h2)) > h3:first-of-type{
   z-index:2;
 }
 
-/* ---------- 引用ブロック ---------- */
-/* gaia が付ける飾りの “ ” を完全に無効化 */
+/* ---------- 引用（“ ” を消す） ---------- */
 section blockquote::before,
 section blockquote::after{ content:none !important; }
 
@@ -102,8 +121,7 @@ section blockquote{
   background:var(--primary-light);
 }
 
-/* ---------- 太字は赤の太字に ---------- */
-/* 見出し内の色は既定の青を維持したいので見出し直下は除外 */
+/* ---------- 強調（赤太字） ---------- */
 section :not(h1):not(h2):not(h3) > strong,
 section p strong,
 section li strong,
@@ -121,7 +139,7 @@ section code{
   border-radius:4px;
 }
 
-/* ブロックコード（確実に上書きするために !important 付き） */
+/* ブロックコード（確実に上書き） */
 section pre{
   font-family:var(--font-code) !important;
   background:#0f172a !important;
