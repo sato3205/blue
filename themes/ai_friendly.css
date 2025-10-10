@@ -79,7 +79,7 @@ section > h3{
   padding-left:.6em;
   border-left:12px solid var(--primary);
   color:var(--primary);
-  font-size:1.0em;
+  font-size:1.05em;
 }
 
 /* ---------- H5: 黒の太字（帯なし・黒） ---------- */
@@ -162,3 +162,8 @@ section pre code{
 section:first-of-type::after {
   content: '' !important;  /* 表紙にはページ番号を非表示 */
 }
+body {
+  font-size: 90%;   /* ← 同じく全体を10%縮小 */
+}
+
+
