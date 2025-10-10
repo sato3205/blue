@@ -8,24 +8,24 @@
 
 /* ---------- variables ---------- */
 :root{
-  /* 学会向けの濃い青 */
-  --primary: #2f54eb;
-  --primary-dark: #1d39c4;
-  --primary-light: rgba(47,84,235,.10);
+  --primary:#2f54eb;          /* 見出しバーの青（濃いめ） */
+  --primary-dark:#1d39c4;
+  --primary-light:rgba(47,84,235,.10);
 
-  --background:#ffffff;
+  --accent:#dc2626;           /* 赤（太字用） */
+
+  --background:#fff;
   --text-primary:#0f172a;
   --text-secondary:#475569;
-  --text-inverse:#ffffff;
+  --text-inverse:#fff;
   --border-light:#e2e8f0;
 
   --font-base:'Noto Sans JP', system-ui, -apple-system, sans-serif;
   --font-code:'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace;
 
-  /* レイアウト */
-  --pad-x:40px;              /* 左右の本文余白 */
-  --bar-height:56px;         /* 見出しバーの高さ */
-  --content-bottom:40px;     /* 下余白 */
+  --pad-x:40px;
+  --bar-height:56px;
+  --content-bottom:40px;
 }
 
 /* ---------- slide base ---------- */
@@ -36,25 +36,24 @@ section{
   background:var(--background);
   background-image:none;
 
-  /* 本文は “上バーの分だけ” 下げる（h2/h3バーと衝突しない） */
+  /* 上の見出しバーと干渉しないように上部余白を確保 */
   padding: calc(var(--bar-height) + 12px) var(--pad-x) var(--content-bottom);
 }
 
-/* ページ番号 */
 section::after{
   content: attr(data-marpit-pagination) "/" attr(data-marpit-pagination-total);
   color:var(--text-secondary);
   font-weight:700;
 }
 
-/* ---------- H2: 上端バー（白帯なし） ---------- */
+/* ---------- H2: 上端バー ---------- */
 section > h2{
   position:absolute;
   top:0; left:0; right:0;
   height:var(--bar-height);
   display:flex; align-items:center;
 
-  padding: 0 var(--pad-x);
+  padding:0 var(--pad-x);
   margin:0 !important;
 
   background:var(--primary);
@@ -66,17 +65,15 @@ section > h2{
 
 /* ---------- H3: 左帯付き小見出し ---------- */
 section > h3{
-  margin: .6em 0 .4em;
-  padding-left: .6em;
-  border-left: 12px solid var(--primary);
-  color: var(--primary);
-  font-size: 1.0em;
+  margin:.6em 0 .4em;
+  padding-left:.6em;
+  border-left:12px solid var(--primary);
+  color:var(--primary);
+  font-size:1.0em;
 }
 
-/* ---------- フォールバック：h2 が無いスライドでは最初の h3 を上バー化 ---------- */
-/* Chromium（VS Code のプレビュー）で :has() が使える前提 */
+/* ---------- フォールバック：h2が無いスライドで最初のh3を上バー化 ---------- */
 section:not(:has(> h2)) { padding-top: calc(var(--bar-height) + 12px); }
-
 section:not(:has(> h2)) > h3:first-of-type{
   position:absolute;
   top:0; left:0; right:0;
@@ -93,30 +90,52 @@ section:not(:has(> h2)) > h3:first-of-type{
   z-index:2;
 }
 
-/* ---------- その他要素 ---------- */
-blockquote{
-  margin: .8em 0;
-  padding: .6em .9em;
-  border-left: 6px solid var(--primary);
-  background: var(--primary-light);
+/* ---------- 引用ブロック ---------- */
+/* gaia が付ける飾りの “ ” を完全に無効化 */
+section blockquote::before,
+section blockquote::after{ content:none !important; }
+
+section blockquote{
+  margin:.8em 0;
+  padding:.6em .9em;
+  border-left:6px solid var(--primary);
+  background:var(--primary-light);
 }
 
-code{ font-family:var(--font-code); background:#f1f5f9; padding:.12em .35em; border-radius:4px; }
-pre{
+/* ---------- 太字は赤の太字に ---------- */
+/* 見出し内の色は既定の青を維持したいので見出し直下は除外 */
+section :not(h1):not(h2):not(h3) > strong,
+section p strong,
+section li strong,
+section table strong{
+  color:var(--accent) !important;
+  font-weight:800;
+}
+
+/* ---------- コード ---------- */
+section code{
   font-family:var(--font-code);
-  background:#0f172a; color:#e5e7eb;
-  padding:.8em 1.1em; border-radius:8px;
-  overflow:auto; border:1px solid #334155;
+  background:#f1f5f9 !important;
+  color:#1f2937 !important;
+  padding:.12em .35em;
+  border-radius:4px;
 }
 
-/* タイトル（h1）は中央寄せのままに */
-section > h1{
-  text-align:center;
-  color:var(--primary);
+/* ブロックコード（確実に上書きするために !important 付き） */
+section pre{
+  font-family:var(--font-code) !important;
+  background:#0f172a !important;
+  color:#e5e7eb !important;
+  padding:.9em 1.2em !important;
+  border-radius:10px !important;
+  border:1px solid #334155 !important;
+  box-shadow:0 8px 16px rgba(0,0,0,.08) !important;
+  overflow:auto !important;
+  margin:1em 0 !important;
 }
-
-/* 表 */
-table{ width:100%; border-collapse:collapse; margin:1em 0; font-size:.95em; }
-th{ background:var(--primary); color:#fff; text-align:left; padding:.5em .6em; }
-td{ padding:.5em .6em; border-bottom:1px solid var(--border-light); }
-tbody tr:nth-child(even) td{ background:#f8fafc; }
+section pre code{
+  background:transparent !important;
+  color:inherit !important;
+  padding:0 !important;
+  border-radius:0 !important;
+}
