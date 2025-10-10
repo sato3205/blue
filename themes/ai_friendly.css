@@ -157,3 +157,18 @@ section pre code{
   padding:0 !important;
   border-radius:0 !important;
 }
+
+/* 表紙をページ番号から除外して「n-1 / total-1」風に見せる */
+section:first-of-type::after {
+  content: '' !important;  /* 表紙にはページ番号を非表示 */
+}
+
+section:not(:first-of-type)::after {
+  counter-increment: fake-page;
+  content: counter(fake-page) '/' calc(var(--marpit-total) - 1);
+}
+
+/* カウンター初期化 */
+body {
+  counter-reset: fake-page 0;
+}
