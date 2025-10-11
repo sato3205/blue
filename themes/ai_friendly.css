@@ -73,8 +73,9 @@ section > h2{
   z-index:2;
 }
 
+/* ---------- H3: 上端バー ---------- */
 section > h3{
-  margin: 0.9em 0 0.2em;
+  margin: 0.9em 0 0.15em;
   padding-bottom: 0.25em;
   border-bottom: 2px solid var(--primary);
   color: var(--primary-dark);
@@ -115,16 +116,21 @@ section:not(:has(> h2)) > h3:first-of-type{
   z-index:2;
 }
 
-/* ---------- 引用（“ ” を消す） ---------- */
+/* ---------- 引用（丸枠・青線囲みスタイル） ---------- */
 section blockquote::before,
-section blockquote::after{ content:none !important; }
-
-section blockquote{
-  margin:.8em 0;
-  padding:.6em .9em;
-  border-left:6px solid var(--primary);
-  background:var(--primary-light);
+section blockquote::after {
+  content: none !important;  /* “ ” を削除 */
 }
+
+section blockquote {
+  margin: 1em 0;
+  padding: 0.8em 1em;
+  border: 2px solid var(--primary);  /* 全体を青線で囲む */
+  background: var(--primary-light);  /* 淡い背景を維持（消したい場合は transparent） */
+  border-radius: 12px;               /* ← 丸みを付ける（好みに応じて8〜16px程度） */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* ほんの少し影を付けると自然 */
+}
+
 
 /* ---------- 強調（赤太字） ---------- */
 section :not(h1):not(h2):not(h3) > strong,
@@ -170,6 +176,7 @@ section:first-of-type::after {
 body {
   font-size: 90%;   /* ← 同じく全体を10%縮小 */
 }
+
 
 
 
