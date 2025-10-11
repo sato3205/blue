@@ -1,1 +1,86 @@
+/* ===== latexish-jp.css — LaTeXっぽい見た目（日本語は明朝） ===== */
 
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Source+Code+Pro&display=swap');
+
+:root{
+  --text:#0f172a;        /* 文字色（ほぼ黒） */
+  --muted:#475569;       /* 注記/キャプション */
+  --border:#d4d4d8;      /* 枠線 */
+  --accent:#1d39c4;      /* 見出しの差し色（控えめ） */
+}
+
+/* 本文を日本語明朝に */
+body{
+  font-family: "Noto Serif JP","Hiragino Mincho ProN","IPAexMincho","BIZ UDPMincho",serif;
+  color: var(--text);
+  text-rendering: optimizeLegibility;
+  font-kerning: normal;
+}
+
+/* 見出し：太字すぎない上品さ＋下線は既定で消す（YAMLの include-in-header とも矛盾しない） */
+h1,h2,h3,h4,h5,h6{
+  font-weight: 700;
+  color: var(--text);
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+h1{ font-size: 1.75rem; margin: 1.2em 0 .6em; }
+h2{ font-size: 1.35rem; margin: 1.1em 0 .55em; }
+h3{ font-size: 1.15rem; margin: 1.0em 0 .5em; }
+h2{ border-bottom: 1px solid var(--border); padding-bottom: .2em; }
+
+/* 段落は詰めすぎない */
+p{ margin: 0 0 0.7em 0; }
+
+/* 箇条書きの余白を整える（LaTeXっぽく詰め過ぎない） */
+ul,ol{ margin: .4em 0 .8em 1.4em; }
+li{ margin: .2em 0; }
+
+/* 引用は地味な枠＋薄い背景（LaTeXのquote環境の雰囲気） */
+blockquote{
+  margin: .9em 0;
+  padding: .6em .9em;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  background: #f8fafc;
+}
+
+/* コードは等幅＋控えめ背景 */
+code,kbd,pre{
+  font-family: "Source Code Pro",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+pre{
+  background: #f6f6f7;
+  border: 1px solid var(--border);
+  padding: .8em;
+  overflow: auto;
+}
+
+/* テーブル：罫線は薄く、キャプションは下に */
+table{ border-collapse: collapse; width: 100%; margin: .9em 0; }
+th,td{ border: 1px solid var(--border); padding: .45em .6em; vertical-align: top; }
+th{ background: #fafafa; }
+caption{ caption-side: bottom; color: var(--muted); font-size: .92em; padding-top: .35em; }
+
+/* 画像の下に控えめキャプション */
+figure{ margin: 1em 0; }
+figcaption{ color: var(--muted); font-size: .92em; }
+
+/* KaTeX/MathJax の表示数式の上下マージン調整（LaTeX風の間隔） */
+.katex-display, .math.display{
+  margin: .9em 0 !important;
+}
+.katex, .math.inline{
+  font-size: 1em; /* 本文サイズに揃える（HTML出力での“巨大化”を防止） */
+}
+
+/* 水平線は実線（あなたの YAML の hr 設定とも矛盾しない） */
+hr{ border: 1px solid #000; height: 0; margin: 1em 0; }
+
+/* ページ番号など（paged: true のときだけ効く） */
+@page{
+  /* ここに何も書かなくても、あなたの include-in-header 側の @page が優先されます */
+}
+@media print{
+  a[href]::after{ content: "" !important; } /* 印刷でURLを出さない */
+}
