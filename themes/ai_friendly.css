@@ -8,9 +8,9 @@
 
 /* ---------- variables ---------- */
 :root{
-  --primary:#2f54eb;          /* 見出しバーの青（濃いめ） */
-  --primary-dark:#1d39c4;
-  --primary-light:rgba(47,84,235,.10);
+  --primary:#0a1f44;          /* 見出しバーの青（濃いめ） */
+  --primary-dark#071836;
+  --primary-light:rgba(10,31,68,.10);
 
   --accent:#dc2626;           /* 強調（赤太字） */
 
@@ -176,6 +176,7 @@ section:first-of-type::after {
 body {
   font-size: 90%;   /* ← 同じく全体を10%縮小 */
 }
+
 
 
 
