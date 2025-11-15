@@ -10,7 +10,7 @@
 :root{
   --primary:#191970;               /* Midnight Blue */
   --primary-dark:#121350;          /* primary を暗くした色 */
-  --primary-light:rgba(173, 216, 230, 0.35); /* primary の薄い背景用 */
+  --primary-light:rgba(135, 206, 250, 0.35); /* primary の薄い背景用 */
 
 
   --accent:#dc2626;           /* 強調（赤太字） */
@@ -185,6 +185,7 @@ section:first-of-type::after {
 body {
   font-size: 90%;   /* ← 同じく全体を10%縮小 */
 }
+
 
 
 
