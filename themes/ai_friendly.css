@@ -139,8 +139,16 @@ section p strong,
 section li strong,
 section table strong{
   color:var(--accent) !important;
-  font-weight:800;
+  font-weight:400;
 }
+
+/* *文字* → 黒の太字にする */
+section em {
+  color: var(--text-primary) !important;
+  font-weight: 800 !important;
+  font-style: normal !important; /* ← 斜体を無効化して普通の太字にする */
+}
+
 
 /* ---------- コード ---------- */
 section code{
@@ -177,6 +185,7 @@ section:first-of-type::after {
 body {
   font-size: 90%;   /* ← 同じく全体を10%縮小 */
 }
+
 
 
 
